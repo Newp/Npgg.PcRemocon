@@ -1,23 +1,19 @@
 ﻿@page "/off"
 @using Npgg.KeyboardMouseInvoker 
 
-<h1>Counter</h1>
-
-<p>Current count: @currentCount</p>
 
 @foreach(var keycode in new KeyboardKeys[] { KeyboardKeys.Space , KeyboardKeys.Return , KeyboardKeys.LeftWindows})
 {
-    <button class="btn btn-primary" @onclick="()=>KeyBoardInput(KeyboardKeys.Space)">당장끄기</button>
+    <button class="btn btn-primary" @onclick="this.Shutdown">당장끄기</button>
 }
 
 @code {
 
     public async Task KeyBoardInput(KeyboardKeys key) =>  await Keyboard.KeyPress(25, key);
 
-    private int currentCount = 0;
-
-    private void IncrementCount()
+    async Task Shutdown()
     {
-        currentCount++;
+        await Keyboard.MultiKeyPress(15, KeyboardKeys.LeftWindows, KeyboardKeys.X);
+        await Keyboard.KeyPress(15, KeyboardKeys.U, KeyboardKeys.U);
     }
 }
