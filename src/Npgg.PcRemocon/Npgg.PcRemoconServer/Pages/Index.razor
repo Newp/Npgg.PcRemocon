@@ -1,7 +1,13 @@
 ﻿@page "/"
+@using Npgg.KeyboardMouseInvoker
 
-<h1>Hello, world!</h1>
+<h1>Remocon</h1>
 
-Welcome to your new app.
+@foreach (var keycode in new KeyboardKeys[] { KeyboardKeys.Space, KeyboardKeys.Return, KeyboardKeys.LeftWindows })
+{
+    <button class="btn btn-primary" @onclick="()=>KeyBoardInput(keycode)">@keycode</button>
+}
 
-test고고고
+@code {
+    public async Task KeyBoardInput(KeyboardKeys key) => await Keyboard.KeyPress(25, key);
+}
