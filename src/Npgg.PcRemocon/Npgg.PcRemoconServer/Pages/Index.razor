@@ -1,13 +1,30 @@
 ﻿@page "/"
 @using Npgg.KeyboardMouseInvoker
 
-<h1>Remocon</h1>
 
-@foreach (var keycode in new KeyboardKeys[] { KeyboardKeys.Space, KeyboardKeys.Return, KeyboardKeys.LeftWindows })
+@foreach (var (key, name) in keys)
 {
-    <button class="btn btn-primary" @onclick="()=>KeyBoardInput(keycode)">@keycode</button>
+    <button class="btn btn-primary" @onclick="() => KeyBoardInput(key)">@name</button>
 }
 
 @code {
+
     public async Task KeyBoardInput(KeyboardKeys key) => await Keyboard.KeyPress(25, key);
+
+    public (KeyboardKeys key, string name)[] keys = new (KeyboardKeys key, string name)[]
+    {
+            (KeyboardKeys.Space , "space"),
+            (KeyboardKeys.Return , "enter"),
+            (KeyboardKeys.LeftWindows , "windows"),
+
+            (KeyboardKeys.Left, "☜(ﾟヮﾟ☜)"),
+            (KeyboardKeys.Right, "(☞ﾟヮﾟ)☞"),
+
+            (KeyboardKeys.Left, "자막<"),
+            (KeyboardKeys.Right, "자막>"),
+
+            (KeyboardKeys.Prior, "PgUp"),
+            (KeyboardKeys.Next, "PgDown"),
+        };
+
 }
