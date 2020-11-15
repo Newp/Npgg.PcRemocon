@@ -16,11 +16,15 @@ namespace Npgg.PcRemoconServer
             CreateHostBuilder(args).Build().Run();
         }
 
+        readonly static int port = 13939;
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    
+                    webBuilder.UseUrls($"http://0.0.0.0:{port}");
                 });
     }
 }
