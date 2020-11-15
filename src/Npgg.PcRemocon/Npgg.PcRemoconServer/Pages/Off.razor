@@ -1,19 +1,56 @@
 ﻿@page "/off"
-@using Npgg.KeyboardMouseInvoker 
+@using Npgg.KeyboardMouseInvoker
+@using System.Diagnostics
+
+<button class="btn btn-warning btn-lg" @onclick="AbrotShutdownTimer">예약취소</button>
+<br />
+
+<div class="btn-group btn-group-lg" role="group" aria-label="...">
+    <button class="btn btn-primary" @onclick="()=>ShutdownTimer(10)">10분</button>
+    <button class="btn btn-primary" @onclick="()=>ShutdownTimer(20)">20분</button>
+    <button class="btn btn-primary" @onclick="()=>ShutdownTimer(30)">30분</button>
+</div>
 
 
-@foreach(var keycode in new KeyboardKeys[] { KeyboardKeys.Space , KeyboardKeys.Return , KeyboardKeys.LeftWindows})
-{
-    <button class="btn btn-primary" @onclick="this.Shutdown">당장끄기</button>
-}
+<div class="btn-group btn-group-lg" role="group" aria-label="...">
+    <button class="btn btn-primary" @onclick="()=>ShutdownTimer(60)">1시간</button>
+    <button class="btn btn-primary" @onclick="()=>ShutdownTimer(120)">2시간</button>
+    <button class="btn btn-primary" @onclick="()=>ShutdownTimer(180)">3시간</button>
+</div>
+
+<br />
+↓↓당장끄기↓↓
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<button class="btn btn-danger btn-lg" @onclick="this.Shutdown">당장끄기</button>
 
 @code {
 
-    public async Task KeyBoardInput(KeyboardKeys key) =>  await Keyboard.KeyPress(25, key);
+    void Shutdown() => Process.Start("shutdown", "-s -t 0 -f");
 
-    async Task Shutdown()
-    {
-        await Keyboard.MultiKeyPress(15, KeyboardKeys.LeftWindows, KeyboardKeys.X);
-        await Keyboard.KeyPress(15, KeyboardKeys.U, KeyboardKeys.U);
-    }
+    void AbrotShutdownTimer() => Process.Start("shutdown", "-a");
+
+    void ShutdownTimer(int min) => Process.Start("shutdown", $"-s -t {min * 60} -f");
 }
