@@ -1,0 +1,74 @@
+﻿@page "/mouse"
+@using Npgg.KeyboardMouseInvoker
+
+
+<table>
+    <tr>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(-distance, -distance)">↖</button></td>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(0,-distance)">↑</button></td>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(distance, -distance)">↗</button></td>
+    </tr>
+    <tr>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(-distance,0)">←</button></td>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>ClearMove()">◈</button></td>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(distance,0)">→</button></td>
+    </tr>
+    <tr>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(-distance,distance)">↙</button></td>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(0,distance)">↓</button></td>
+        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(distance,distance)">↘</button></td>
+    </tr>
+</table>
+
+
+@code {
+    int distance = 3;
+    int x;
+    int y;
+
+    Task run = null;
+    void SetMove(int x, int y)
+    {
+        if (this.x == x && this.y == y)
+        {
+            ClearMove();
+            return;
+        }
+
+        this.x = x;
+        this.y = y;
+
+        if (run == null)
+        {
+            run = Task.Run(Update);
+        }
+    }
+
+    void ClearMove()
+    {
+        this.x = 0;
+        this.y = 0;
+
+    }
+
+    async Task Update()
+    {
+        while (true)
+        {
+            if (x == 0 && y == 0)
+            {
+                await Task.Delay(100);
+                continue;
+            }
+
+            Mouse.MovePosition(x, y);
+            await Task.Delay(3);
+        }
+    }
+
+
+    void OnMouseOver()
+    {
+
+    }
+}
