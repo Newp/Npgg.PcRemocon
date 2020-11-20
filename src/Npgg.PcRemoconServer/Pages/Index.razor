@@ -1,0 +1,51 @@
+﻿@page "/"
+@using Npgg.KeyboardMouseInvoker
+
+
+
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.Up)">▲</button>
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.Down)">▼</button>
+</div>
+
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.Left)">◀</button>
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.Right)">▶</button>
+</div>
+
+<br />
+<br />
+
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-success btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.Space)">Space</button>
+    <button class="btn btn-success btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.Return)">Return</button>
+</div>
+<br />
+<br />
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.PageUp)">PgUp</button>
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.PageDown)">PgDown</button>
+</div>
+<br />
+<br />
+
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-info btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.OEMComma)">◀</button>
+    <div class="btn btn-info btn-lg">자막</div>
+    <button class="btn btn-info btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.OEMPeriod)">▶</button>
+</div>
+
+<br />
+<br />
+
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.VolumeUp)">▲</button>
+    <div class="btn btn-primary btn-lg">Volumn</div>
+    <button class="btn btn-primary btn-lg" @onclick="() => KeyBoardInput(KeyboardKeys.VolumeDown)">▼</button>
+</div>
+
+@code {
+
+    public async Task KeyBoardInput(KeyboardKeys key) => await Keyboard.KeyPress(25, key);
+
+}
