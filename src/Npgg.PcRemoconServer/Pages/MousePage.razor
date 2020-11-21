@@ -21,8 +21,33 @@
 </table>
 
 
+
+<div class="btn-group btn-group-justified">
+    <button class="btn btn-primary btn-lg" @onclick="LeftClick">Left</button>
+    <button class="btn btn-primary btn-lg" @onclick="RightClick">Right</button>
+</div>
+
+
+
 @code {
-    int distance = 3;
+
+    public async Task LeftClick()
+    {
+        Mouse.LeftDown();
+        await Task.Delay(20);
+        Mouse.LeftUp();
+    }
+
+    public async Task RightClick()
+    {
+        Mouse.RightDown();
+        await Task.Delay(20);
+        Mouse.RightUp();
+    }
+
+
+
+int distance = 3;
     int x;
     int y;
 
