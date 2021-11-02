@@ -1,28 +1,53 @@
 ﻿@page "/mouse"
 @using Npgg.KeyboardMouseInvoker
 @inherits MouseComponent
-<table>
-    <tr>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(-distance, -distance)">↖</button></td>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(0,-distance)">↑</button></td>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(distance, -distance)">↗</button></td>
-    </tr>
-    <tr>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(-distance,0)">←</button></td>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>ClearMove()">◈</button></td>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(distance,0)">→</button></td>
-    </tr>
-    <tr>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(-distance,distance)">↙</button></td>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(0,distance)">↓</button></td>
-        <td><button class="btn btn-primary btn-lg" @onclick="()=>SetMove(distance,distance)">↘</button></td>
-    </tr>
-</table>
 
-
+<div style="width:500px; height:500px; background-color:orangered" @onmousemove="@Mouse_Move" @onmousedown="@Mouse_Down" @onmouseup="@Mouse_Up" />
 
 <div class="btn-group btn-group-justified">
     <button class="btn btn-primary btn-lg" @onclick="LeftClick">Left</button>
     <button class="btn btn-primary btn-lg" @onclick="RightClick">Right</button>
 </div>
+
+<input @bind="@text"/>
+@code{
+
+
+    string text = "";
+    DateTime click;
+    bool isMouseDown = false;
+    double downX, downY;
+    protected void Mouse_Down(MouseEventArgs e)
+    { 
+        click = DateTime.Now;
+        downX = e.ClientX;
+        downY = e.ClientY;
+        isMouseDown = true;
+    }
+    protected async Task Mouse_Up(MouseEventArgs e)
+    {
+        isMouseDown = false;
+        var diff = DateTime.Now - click;
+
+        if(diff.Milliseconds < 200)
+        {
+            await this.LeftClick();
+            text = "click";
+        }
+        else
+        {
+            text= "drag?";
+        }
+    }
+
+
+
+    protected void Mouse_Move(MouseEventArgs e)
+    {
+        if (isMouseDown == false)
+            return;
+
+        text = $"{e.ClientX}, {e.ClientY}";
+    }
+}
 

@@ -13,7 +13,6 @@ namespace Npgg.PcRemoconServer
 
         public async Task LeftClick()
         {
-            ClearMove();
             Mouse.LeftDown();
             await Task.Delay(20);
             Mouse.LeftUp();
@@ -21,7 +20,6 @@ namespace Npgg.PcRemoconServer
 
         public async Task RightClick()
         {
-            ClearMove();
             Mouse.RightDown();
             await Task.Delay(20);
             Mouse.RightUp();
@@ -32,11 +30,5 @@ namespace Npgg.PcRemoconServer
         protected int distance = 3;
        
 
-
-        [Inject]
-        private MouseService mouseService { get; set; }
-
-        protected void SetMove(int x, int y) => mouseService.SetMove(x, y);
-        protected void ClearMove() => mouseService.ClearMove();
     }
 }
