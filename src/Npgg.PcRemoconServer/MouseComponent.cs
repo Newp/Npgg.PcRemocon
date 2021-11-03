@@ -38,11 +38,12 @@ namespace Npgg.PcRemoconServer
             if (diff.Milliseconds < 200)
             {
                 await this.LeftClick();
-                text = "click";
+                text = "left click";
             }
             else
             {
-                text = "drag?";
+                await this.RightClick();
+                text = "right click";
             }
 
         }
