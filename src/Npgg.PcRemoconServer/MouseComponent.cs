@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Npgg.KeyboardMouseInvoker;
@@ -12,6 +13,7 @@ namespace Npgg.PcRemoconServer
 {
     public class MouseComponent : ComponentBase
     {
+        [Inject] IJSRuntime JsRuntime { get; set; }
 
         protected string text = "";
         DateTime click;
@@ -33,7 +35,10 @@ namespace Npgg.PcRemoconServer
             var diff = DateTime.Now - click;
 
             if (moved)
+            {
+                await JsRuntime.ScrollTo(3);
                 return;
+            }
 
             if (diff.Milliseconds < 200)
             {
